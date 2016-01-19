@@ -1,0 +1,47 @@
+zrael@azrael-G551JK:~/Documents/nn/code/prelim1$ THEANO_FLAGS='exception_verbosity=high' python combine.py
+Using gpu device 0: GeForce GTX 850M
+/home/azrael/anaconda/lib/python2.7/site-packages/theano/tensor/subtensor.py:110: FutureWarning: comparison to `None` will result in an elementwise object comparison in the future.
+  start in [None, 0] or
+/home/azrael/anaconda/lib/python2.7/site-packages/theano/tensor/subtensor.py:114: FutureWarning: comparison to `None` will result in an elementwise object comparison in the future.
+  stop in [None, length, maxsize] or
+/home/azrael/anaconda/lib/python2.7/site-packages/theano/tensor/opt.py:2165: FutureWarning: comparison to `None` will result in an elementwise object comparison in the future.
+  if (replace_x == replace_y and
+/home/azrael/anaconda/lib/python2.7/site-packages/theano/scan_module/scan_perform_ext.py:85: RuntimeWarning: numpy.ndarray size changed, may indicate binary incompatibility
+  from scan_perform.scan_perform import *
+/home/azrael/anaconda/lib/python2.7/site-packages/theano/tensor/subtensor.py:190: FutureWarning: comparison to `None` will result in an elementwise object comparison in the future.
+  if stop in [None, maxsize]:
+Compiling time is  998.259691
+... Training the model.
+WARNING: ('Stride mismatch', ((200, 1), (200, 1), (4, 800), (4, 4), 'DimShuffle{1,0}'))
+WARNING: ('Stride mismatch', ((200, 1), (200, 1), (4, 800), (4, 4), 'DimShuffle{1,0}'))
+Traceback (most recent call last):
+  File "combine.py", line 250, in <module>
+    SGD(0.001, 1)
+  File "combine.py", line 235, in SGD
+    train_loss = train_net(seqidx)
+  File "/home/azrael/anaconda/lib/python2.7/site-packages/theano/compile/function_module.py", line 579, in __call__
+    outputs = self.fn()
+  File "/home/azrael/anaconda/lib/python2.7/site-packages/theano/compile/debugmode.py", line 2030, in deco
+    return f()
+  File "/home/azrael/anaconda/lib/python2.7/site-packages/theano/compile/debugmode.py", line 1790, in f
+    thunk_py()
+  File "/home/azrael/anaconda/lib/python2.7/site-packages/theano/scan_module/scan_op.py", line 656, in rval
+    r = p(n, [x[0] for x in i], o)
+  File "/home/azrael/anaconda/lib/python2.7/site-packages/theano/scan_module/scan_op.py", line 650, in <lambda>
+    self, node)
+  File "scan_perform.pyx", line 341, in theano.scan_module.scan_perform.perform (/home/azrael/.theano/compiledir_Linux-3.16.0-37-generic-x86_64-with-debian-jessie-sid-x86_64-2.7.10-64/scan_perform/mod.cpp:3573)
+  File "scan_perform.pyx", line 335, in theano.scan_module.scan_perform.perform (/home/azrael/.theano/compiledir_Linux-3.16.0-37-generic-x86_64-with-debian-jessie-sid-x86_64-2.7.10-64/scan_perform/mod.cpp:3505)
+ValueError: CudaNdarray_CopyFromCudaNdarray: need same dimensions for dim 0, destination=79, source=1
+Apply node that caused the error: GpuIncSubtensor{InplaceSet;::, 0:1:}(GpuIncSubtensor{Set;::, 1:200:}.0, CudaNdarrayConstant{0.0})
+Use another linker then the c linker to have the inputs shapes and strides printed.
+Debugprint of the apply node: 
+GpuIncSubtensor{InplaceSet;::, 0:1:} [@A] <CudaNdarrayType(float32, matrix)> ''   
+ |GpuIncSubtensor{Set;::, 1:200:} [@B] <CudaNdarrayType(float32, matrix)> ''   
+ | |GpuElemwise{mul,no_inplace} [@C] <CudaNdarrayType(float32, matrix)> ''   
+ | | |GpuFromHost [@D] <CudaNdarrayType(float32, matrix)> ''   
+ | | | |c0[t-1] [@E] <TensorType(float32, matrix)>
+ | | |GpuFromHost [@F] <CudaNdarrayType(float32, row)> ''   
+ | |   |<TensorType(float32, row)> [@G] <TensorType(float32, row)>
+ | |GpuSubtensor{::, 0:199:} [@H] <CudaNdarrayType(float32, matrix)> ''   
+ |   |GpuElemwise{mul,no_inplace} [@C] <CudaNdarrayType(float32, matrix)> ''   
+ |CudaNdarrayConstant{0.0} [@I] <CudaNdarrayType(float32, scalar)>
